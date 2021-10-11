@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "dc711908-9183-430a-b192-e7a6d0659533",
+		"name": "oauth2-sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authorize",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/authorize?client_id=client1&redirect_uri=http://localhost:8000/redirect&scope=custom_scope&state=12345678&response_type=code",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "client1"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost:8000/redirect"
+						},
+						{
+							"key": "scope",
+							"value": "custom_scope"
+						},
+						{
+							"key": "state",
+							"value": "12345678"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const querystring = require('querystring');\r",
+							"let params = pm.response.headers.get('Location').split('?');\r",
+							"postman.setEnvironmentVariable(\"code\", querystring.parse(params[1]).code);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"user1\",\r\n    \"password\": \"pass1\",\r\n    \"clientId\": \"client1\",\r\n    \"state\": \"12345678\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"{{code}}\",\r\n    \"clientId\": \"client1\",\r\n    \"clientSecret\": \"1q2w3e4r\",\r\n    \"state\": \"12345678\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
