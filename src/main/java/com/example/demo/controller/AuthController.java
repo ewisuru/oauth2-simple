@@ -11,10 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.constraints.NotNull;
@@ -29,7 +26,7 @@ public class AuthController {
   private UserService userService;
   private SessionService sessionService;
 
-  @PostMapping("/authorize")
+  @GetMapping("/authorize")
   public RedirectView authorize(
       @RequestParam("client_id") @NotNull String clientId,
       @RequestParam("redirect_uri") @NotNull String redirectUri,

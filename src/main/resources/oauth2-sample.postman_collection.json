@@ -8,7 +8,7 @@
 		{
 			"name": "authorize",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"url": {
 					"raw": "http://localhost:8080/authorize?client_id=client1&redirect_uri=http://localhost:8000/redirect&scope=custom_scope&state=12345678&response_type=code",
